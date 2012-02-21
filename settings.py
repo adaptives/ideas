@@ -152,4 +152,10 @@ LOGGING = {
 
 import socket
 if not socket.gethostname() == 'ubuntu':
+    print "running django in production"
     DEBUG = TEMPLATE_DEBUG = False
+    
+    STATICFILES_DIRS = (
+        ('css','/root/workspace/ideas/staticfiles/css'),
+        ('images','/root/workspace/ideas/staticfiles/images'),
+    )
