@@ -1,3 +1,3 @@
-import settings import *
+from settings import *
 
 DEBUG = TEMPLATE_DEBUG = False
