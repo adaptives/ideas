@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div><a href="/">Back</a></div>
+<div>
+    <h3>{{idea.title}}</h3>
+</div>
+<div>
+	submitted by <a href="{{idea.submitter.url}}" target="_blank">{{idea.submitter.name}}</a>
+</div>
+<div style="font-size: 120%; margin-top: 20px;">
+    {{idea.desc|safe}}
+</div>
+<div>
+    {{ce|safe}}
+</div>
+{% endblock %}
