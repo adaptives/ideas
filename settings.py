@@ -73,9 +73,9 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    ('js','/home/pshah/workspace/wwald/ideas/staticfiles/js'),
-    ('css','/home/pshah/workspace/wwald/ideas/staticfiles/css'),
-    ('images','/home/pshah/workspace/wwald/ideas/staticfiles/images'),
+    ('js', os.path.join(os.path.dirname(__file__), 'staticfiles/js').replace('\\','/')),
+    ('css',os.path.join(os.path.dirname(__file__), 'staticfiles/css').replace('\\','/')),
+    ('images',os.path.join(os.path.dirname(__file__), 'staticfiles/images').replace('\\','/')),
 )
 
 # List of finder classes that know how to find static files in
@@ -150,12 +150,3 @@ LOGGING = {
     }
 }
 
-import socket
-if not socket.gethostname() == 'ubuntu':
-    print "running django in production"
-    DEBUG = TEMPLATE_DEBUG = False
-    
-    STATICFILES_DIRS = (
-        ('css','/root/workspace/ideas/staticfiles/css'),
-        ('images','/root/workspace/ideas/staticfiles/images'),
-    )
