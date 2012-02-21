@@ -149,3 +149,7 @@ LOGGING = {
         },
     }
 }
+
+import socket
+if not socket.gethostname() == 'ubuntu':
+    DEBUG = TEMPLATE_DEBUG = False
