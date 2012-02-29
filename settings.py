@@ -1,8 +1,30 @@
 # Django settings for ideas project.
 import os
+import socket
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+if socket.gethostname() != 'ubuntu':
+    import deployment_settings
+    TEMPLATE_DEBUG = DEBUG =  deployment_settings.DEBUG
+    FORCE_SCRIPT_NAME = deployment_settings.FORCE_SCRIPT_NAME
+    STATIC_ROOT = deployment_settings.STATIC_ROOT
+    DATABASES = deployment_settings.DATABASES
+else:
+    TEMPLATE_DEBUG = DEBUG = True 
+    # Absolute path to the directory static files should be collected to.
+    # Don't put anything in this directory yourself; store your static files
+    # in apps' "static/" subdirectories and in STATICFILES_DIRS.
+    # Example: "/home/media/media.lawrence.com/static/"
+    STATIC_ROOT = ''
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': '../ideas.db',                      # Or path to database file if using sqlite3.
+            'USER': '',                      # Not used with sqlite3.
+            'PASSWORD': '',                  # Not used with sqlite3.
+            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        }
+    }
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -10,16 +32,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '../ideas.db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -53,11 +66,6 @@ MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media/').replace('\\','/')
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -73,7 +81,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    ('js', os.path.join(os.path.dirname(__file__), 'staticfiles/js').replace('\\','/')),
+
     ('css',os.path.join(os.path.dirname(__file__), 'staticfiles/css').replace('\\','/')),
     ('images',os.path.join(os.path.dirname(__file__), 'staticfiles/images').replace('\\','/')),
 )
@@ -114,13 +122,14 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'ideas.ideasm',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.markup',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ideas.ideasm',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -149,4 +158,3 @@ LOGGING = {
         },
     }
 }
-
