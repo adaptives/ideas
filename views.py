@@ -27,7 +27,7 @@ def idea(request, idea_id, slug):
         logger.error('Could not find value for ce... using default')
         ce = ''
     
-    ctx = {'idea': idea, 'ga': ga, 'ce': ce.v}
+    ctx = {'idea': idea, 'ga': ga.v, 'ce': ce.v}
     return render_to_response('idea.html', ctx)
 
 
