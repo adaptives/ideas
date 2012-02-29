@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load markup %}
 {% block content %}
 <div><a href="/">Back</a></div>
 <div>
@@ -9,7 +9,7 @@
 	submitted by <a href="{{idea.submitter.url}}" target="_blank">{{idea.submitter.name}}</a>
 </div>
 <div style="font-size: 120%; margin-top: 20px;">
-    {{idea.desc|safe}}
+    {{idea.desc|markdown}}
 </div>
 <div>
     {{ce|safe}}
