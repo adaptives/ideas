@@ -34,3 +34,9 @@ class KVPairs(models.Model):
     def __unicode__(self):
         return self.k
 
+class KVPairsLarge(models.Model):
+    k = models.CharField(max_length=128)
+    v = models.TextField()
+
+    def __unicode__(self):
+        return self.k
